@@ -55,4 +55,7 @@ urlpatterns = [
     path('about-us/', AboutUsView.as_view(), name='about_us'),   
     path('contact-messages/', views.contact_messages, name='contact_messages'),   
     path('admin-communications/', views.admin_communications, name='admin_communications'),   
+    path("panel/admin/response/<int:message_id>/", views.response_to_message, name="contact_us_response"),
+    path('panel/admin/admin_response_form/<int:message_id>/', views.contact_us_admin_response, name="response_form"),
+    path("panel/admin/success_response/", views.contact_response, name="response_status")
 ]

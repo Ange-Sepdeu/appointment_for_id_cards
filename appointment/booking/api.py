@@ -242,6 +242,17 @@ class ContactUsView(APIView):
             contact_us.save()
             return Response({"message": f"Message sent successfully !"}, status=status.HTTP_201_CREATED)
         return Response({"message": contact_us.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, message_id):
+        contact_object = ContactUs.objects.get(pk=message_id)
+        response = request.data["response"]
+        user_email = contact_object.email
+        subject = "Response to your message"
+        try:
+            yag.send(to=[f"{user_email}"], subject=subject, contents=response)
+            return Response({"message": "response sent successfully !"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class NotificationsView(APIView):
     def get(self, request, id):

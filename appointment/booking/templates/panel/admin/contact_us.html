@@ -1,6 +1,6 @@
 {% extends 'panel/admin/base_admin.html' %}
 {% block content %}
-<h1>All contact us messages</h1>
+<h1>All messages</h1>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -19,6 +19,9 @@
                     <td>{{ appointment.name }}</td>
                     <td>{{ appointment.email }}</td>
                     <td>{{ appointment.message }}</td>
+                    <td>
+                        <a href="{% url 'response_form' appointment.id %}" class="btn btn-info">respond</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

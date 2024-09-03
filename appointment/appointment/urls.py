@@ -16,6 +16,7 @@ urlpatterns = [
     path("api/missing-cards/", api.MissingCardView.as_view(), name="Get post missing card(s)"),
     path("api/card-status/<int:appointment_id>/", api.CardStatusView.as_view(), name="Get_update_card_avalilability"),
     path("api/contact-us/", api.ContactUsView.as_view(), name="Contact us messages"),
+    path("api/contact-us/<int:message_id>/", api.ContactUsView.as_view(), name="response_to_contact_us"),
     path("api/notification/<int:id>/", api.NotificationsView.as_view(), name="Get notifications"),
     path("api/communications/", api.CommunicationsView.as_view(), name="Add_get_communications"),
     path("api/communications/<int:id>/", api.CommunicationsView.as_view(), name="Edit_delete_communications"),

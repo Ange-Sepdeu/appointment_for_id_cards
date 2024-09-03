@@ -1,0 +1,10 @@
+{% extends 'panel/admin/base_admin.html' %}
+{% block content %}
+<h1>Response status</h1>
+<div class="table-responsive">
+    <a class="btn btn-primary" href="{% url 'contact_messages' %}">Go back</a>
+    <div style="color: white; background-color: green; font-size: 32px; font-weight: 700; padding: 24px; text-align: center;">
+            Message sent successfully !
+    </div>
+</div>
+{% endblock %}

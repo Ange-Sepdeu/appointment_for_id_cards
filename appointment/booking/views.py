@@ -287,6 +287,9 @@ def book_appointment(request):
 def upload_document(request):
     if request.method == 'POST':
         form = DocumentUploadForm(request.POST, request.FILES)
+        document_uploaded = Document.objects.get(user=request.user.id)
+        if document_uploaded is not None:
+            return HttpResponse("User already uploaded documents !")    
         if form.is_valid():
             document = form.save(commit=False)
             document.user = request.user
@@ -690,6 +693,20 @@ def delete_document(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     document.delete()
     return redirect('manage_documents')
+
+def response_to_message(request, message_id):
+    contact_object = ContactUs.objects.get(pk=message_id)
+    user_email = contact_object.email
+    message = request.POST["response"]
+    subject = "Response to your message"
+    yag.send(to=[f"{user_email}"], subject=subject, contents=message)
+    return render(request, "panel/admin/contact_response.html", {"status": "Message sent successfully !"})
+
+def contact_us_admin_response(request, message_id):
+    return render(request, "panel/admin/contact_us_response.html", {"message_id": message_id})
+
+def contact_response(request):
+    return render(request, "panel/admin/contact_response.html", {"status": ""}) 
 
 
 class AboutUsView(TemplateView):
